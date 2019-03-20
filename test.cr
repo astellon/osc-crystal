@@ -1,5 +1,5 @@
 require "socket"
-require "./oscr.cr"
+require "./src/osc-crystal.cr"
 
 server = UDPSocket.new
 server.bind "localhost", 8000
@@ -7,7 +7,8 @@ server.bind "localhost", 8000
 client = UDPSocket.new
 client.connect "localhost", 8000
 
-m1 = OSC::Message.new("/foo", "ifd", 1, 1.2_f32)
+m1 = OSC::Message.new("/foo", "i", 0_i32)
+puts m1.arg(0)
 
 client.send m1
 

@@ -50,11 +50,11 @@ module OSC
     end
 
     def arg(index : Int)
-      return nil if index > nargs
+      return -1 if index > nargs
 
       t = tag
       pos = OSC::Util.args_start(@data)
-      
+
       argc = tagc = 0
       while tagc < t.size && argc != index
         case t[tagc]
@@ -73,8 +73,7 @@ module OSC
         end
         tagc += 1
       end
-
-      puts @data[pos..pos+3]
+      pos
     end
 
     def to_slice

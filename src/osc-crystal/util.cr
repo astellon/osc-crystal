@@ -40,7 +40,7 @@ module OSC
       end
       sum
     end
-    
+
     # Skip until this find a null(0_u8).
     # This returns the index of past-the-end,
     # if given data does'nt contain null.
@@ -58,10 +58,10 @@ module OSC
       end
       offset
     end
+
     # Skip paddig (skip 0-lim additional zero)
-    def skip_padding(data : Array(UInt8), offset = 0, lim = 3)
-      lim += offset
-      while offset < lim && offset < data.size && data[offset] == 0
+    def skip_padding(data : Array(UInt8), offset = 0)
+      while offset % 4 != 0 && offset < data.size && data[offset] == 0
         offset += 1
       end
       offset
@@ -76,7 +76,7 @@ module OSC
     end
 
     def args_start(data : Array(UInt8))
-      skip_padding(data, skip_until_null(data, tag_start(data)), 4)
+      skip_padding(data, skip_until_null(data, tag_start(data)))
     end
   end
 end
