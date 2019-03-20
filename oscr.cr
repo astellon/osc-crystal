@@ -53,6 +53,34 @@ module OSC
       sum
     end
 
+    def arg(index : Int)
+      return nil if index > nargs
+
+      t = tag
+      pos = OSC::Util.args_start(@data)
+      
+      argc = tagc = 0
+      while tagc < t.size && argc != index
+        case t[tagc]
+        when 'm', 'r', 'c', 'f', 'i'
+          argc += 1
+          pos += 4
+        when 'h', 't', 'd'
+          argc += 1
+          pos += 8
+        when 's', 'S'
+          argc += 1
+          pos = OSC::Util.skip_until_null(@data, pos)
+        when 'b'
+          argc += 1
+          pos += OSC::Decode.decode(Int32, @data, pos)
+        end
+        tagc += 1
+      end
+
+      puts @data[pos..pos+3]
+    end
+
     def to_slice
       Slice.new(@data.to_unsafe, @data.size)
     end
