@@ -50,7 +50,7 @@ module OSC
     end
 
     def arg(index : Int)
-      return -1 if index > nargs
+      return nil if index > nargs
 
       t = tag
       pos = OSC::Util.args_start(@data)
@@ -66,14 +66,15 @@ module OSC
           pos += 8
         when 's', 'S'
           argc += 1
-          pos = OSC::Util.skip_until_null(@data, pos)
+          pos += OSC::Util.skip_until_null(@data, pos)
         when 'b'
           argc += 1
           pos += OSC::Decode.decode(Int32, @data, pos)
         end
         tagc += 1
       end
-      pos
+
+      OSC::Decode.decode(OSC::Type.type(t[tagc]), @data, pos)
     end
 
     def to_slice
