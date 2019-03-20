@@ -1,36 +1,67 @@
+require "./encode.cr"
 
 module OSC
   extend self
 
-  {% for type in {Int32, Float32} %}
-  def encode(x : {{type}})
-    x.unsafe_as(StaticArray(UInt8, 4)).reverse!.to_a
+  def estimate_size(x : String)
+    x.size + 4 - x.size % 4
   end
-  {% end %}
 
-  {% for type in {Int64, Float64} %}
-  def encode(x : {{type}})
-    x.unsafe_as(StaticArray(UInt8, 8)).reverse!.to_a
+  def estimate_size(x)
+    sizeof(typeof(x))
   end
-  {% end %}
 
-  def align(data)
-    padd = 4 - (data.size) % 4
-    (1..padd).each do
-      data.push(0_u8)
+  # calculate byte size of data
+  def estimate_size(address : String, tag : String, *args)
+    # sum = (address.size + (4 - (address.size % 4)))
+    #       + (tag.size + 1 + (4 - ((tag.size + 1) % 4)))
+    sum = address.size + tag.size - (address.size + tag.size + 1) % 8 + 9
+
+    # position of looking argument
+    pos = 0
+
+    tag.each_char do |t|
+      case t
+      when 'm', 'r', 'c', 'f', 'i'
+        sum += 4
+        pos += 1
+      when 'h', 't', 'd'
+        sum += 8
+        pos += 1
+      when 's', 'S'
+        sum += estimate_size(args[pos])
+        pos += 1
+      when 'b'
+        i = estimate_size(args[pos])
+        sum += 4 + i         # add 4 for Int32 count
+        sum += 4 - (sum % 4) # add padding
+        pos += 1
+        # other cases are constants
+      end
     end
+
+    sum
   end
 
   class Message
     getter data : Array(UInt8)
 
     def initialize(address : String, tag : String, *args)
-      @data = address.bytes
-      OSC.align(@data)
+      # malloc data Array
+      s = OSC.estimate_size(address, tag, args)
+      @data = Array(UInt8).new(s)
+
+      # address
+      @data += address.bytes
+      OSC::Encode.align!(@data)
+
+      # tag
       @data += ("," + tag).bytes
-      OSC.align(@data)
+      OSC::Encode.align!(@data)
+
+      # args
       args.each do |arg|
-        @data += OSC.encode(arg)
+        @data += OSC::Encode.encode(arg)
       end
     end
 
@@ -39,18 +70,40 @@ module OSC
 
     def address
       eoad = @data.index { |x| x == 0 }
-      return nil if eoad.nil?
+      return "" if eoad.nil?
       String.new(@data.to_unsafe, eoad)
     end
 
     def tag
-      eoad = @data.index { |x| x == 0 }
-      return nil if eoad.nil?
-      skip = @data.index(offset: eoad) { |x| x != 0 }
-      return nil if skip.nil?
-      last = @data.index(offset: skip) { |x| x == 0 }
-      return nil if last.nil?
-      String.new(@data.to_unsafe + skip + 1, last - skip - 1)
+      pos = 0_i32
+      len = @data.size
+
+      while !(@data[pos] === ',')
+        pos += 4 # alignment
+        return "" if pos > len
+      end
+
+      a = pos
+
+      while @data[pos] != 0
+        pos += 1
+        return "" if pos > len
+      end
+
+      String.new(@data.to_unsafe + a + 1, pos - a - 1)
+    end
+
+    def nargs
+      sum = 0
+      tag.each_char do |c|
+        case c
+        when 'T', 'F', 'N', 'I', '[', ']'
+          # no argument
+        else
+          sum += 1
+        end
+      end
+      sum
     end
 
     def to_slice
