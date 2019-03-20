@@ -1,4 +1,6 @@
 require "./encode.cr"
+require "./decode.cr"
+require "./util.cr"
 
 module OSC
   extend self
@@ -8,16 +10,14 @@ module OSC
 
     def initialize(address : String, tag : String, *args)
       # malloc data Array
-      s = OSC::Encode.estimate_size(address, tag, args)
+      s = OSC::Util.estimate_size(address, tag, args)
       @data = Array(UInt8).new(s)
 
       # address
-      @data += address.bytes
-      OSC::Encode.align!(@data)
+      @data += OSC::Encode.encode(address)
 
       # tag
-      @data += ("," + tag).bytes
-      OSC::Encode.align!(@data)
+      @data += OSC::Encode.encode("," + tag)
 
       # args
       args.each do |arg|
@@ -35,22 +35,9 @@ module OSC
     end
 
     def tag
-      pos = 0_i32
-      len = @data.size
-
-      while !(@data[pos] === ',')
-        pos += 4 # alignment
-        return "" if pos > len
-      end
-
-      a = pos
-
-      while @data[pos] != 0
-        pos += 1
-        return "" if pos > len
-      end
-
-      String.new(@data.to_unsafe + a + 1, pos - a - 1)
+      head = OSC::Util.tag_start(@data)
+      return "" if head > @data.size
+      String.new(@data.to_unsafe + head + 1)
     end
 
     def nargs

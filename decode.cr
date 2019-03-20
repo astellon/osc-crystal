@@ -1,11 +1,13 @@
 module OSC
   module Decode
+    extend self
+
     def decode32(type : Int32.class, x : Array(UInt8), offset : Int = 0)
       y = 0_i32
       y |= x[offset + 3].to_i32
       y |= x[offset + 2].to_i32 << 8
       y |= x[offset + 1].to_i32 << 16
-      y |= x[offset    ].to_i32 << 24
+      y |= x[offset].to_i32 << 24
     end
 
     def decode(type : Int64.class, x : Array(UInt8), offset : Int = 0)
@@ -17,7 +19,7 @@ module OSC
       y |= x[offset + 3].to_i64 << 32
       y |= x[offset + 2].to_i64 << 40
       y |= x[offset + 1].to_i64 << 48
-      y |= x[offset    ].to_i64 << 56
+      y |= x[offset].to_i64 << 56
     end
 
     def decode(type : Float32.class, x : Array(UInt8), offset : Int = 0)
