@@ -58,6 +58,14 @@ module OSC
       end
       offset
     end
+    # Skip paddig (skip 0-lim additional zero)
+    def skip_padding(data : Array(UInt8), offset = 0, lim = 3)
+      lim += offset
+      while offset < lim && offset < data.size && data[offset] == 0
+        offset += 1
+      end
+      offset
+    end
 
     def tag_start(data : Array(UInt8))
       pos = 0
@@ -68,7 +76,7 @@ module OSC
     end
 
     def args_start(data : Array(UInt8))
-      skip_null(data, skip_until_null(data, tag_start))
+      skip_padding(data, skip_until_null(data, tag_start(data)), 4)
     end
   end
 end

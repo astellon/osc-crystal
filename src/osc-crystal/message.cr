@@ -1,7 +1,3 @@
-require "./encode.cr"
-require "./decode.cr"
-require "./util.cr"
-
 module OSC
   extend self
 

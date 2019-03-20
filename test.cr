@@ -13,7 +13,7 @@ client.send m1
 
 message, client_addr = server.receive
 m2 = OSC::Message.new(message.bytes)
-puts m2.tag
+puts m2.arg(0)
 
 client.close
 server.close
