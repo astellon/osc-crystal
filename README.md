@@ -9,7 +9,7 @@ TODO: Write a description here
    ```yaml
    dependencies:
      oscr:
-       github: your-github-user/osc-crystal
+       github: astellon/osc-crystal
    ```
 
 2. Run `shards install`
