@@ -24,10 +24,14 @@ module OSC::Encode
   end
 
   def encode(x : Char)
-    x.to_u8
+    x.bytes
   end
 
-  def encode(x : RGB)
+  def encode(x : OSC::Type::RGBA)
     [x.r, x.g, x.b, x.a]
+  end
+
+  def encode(x)
+    Array(UInt8).new
   end
 end

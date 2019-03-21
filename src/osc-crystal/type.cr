@@ -14,12 +14,13 @@ module OSC::Type
     end
   end
 
-  class RGB
+  class RGBA
     getter r : UInt8
     getter g : UInt8
     getter b : UInt8
+    getter a : UInt8
 
-    def initialize(@r, @g, @b)
+    def initialize(@r, @g, @b, @a)
     end
   end
 
@@ -57,7 +58,7 @@ module OSC::Type
                't' => OSC::Type::Time,
                'd' => Float64,
                'c' => Char,
-               'r' => OSC::Type::RGB,
+               'r' => OSC::Type::RGBA,
                'm' => OSC::Type::Midi,
                'T' => OSC::Type::True,
                'F' => OSC::Type::False,
