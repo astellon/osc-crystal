@@ -1,9 +1,20 @@
 require "../spec_helper.cr"
 
 describe OSC::Message do
-  it "make message" do
-    m = OSC::Message.new("/foo", "i", 0_i32)
-    m.tag.should eq "i"
-    m.arg(0).should eq 0
+  it "#new" do
+    OSC::Message.new("/foo",
+                     0_i32,
+                     0_f32,
+                     # t
+                     0_i64,
+                     0_f32,
+                     '0',
+                     OSC::Type::RGBA.new(0_u8, 0_u8, 0_u8, 0_u8),
+                     # m
+                     OSC::Type::True,
+                     OSC::Type::False,
+                     Nil,
+                     OSC::Type::Inf
+    )
   end
 end
