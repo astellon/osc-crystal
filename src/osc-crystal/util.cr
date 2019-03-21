@@ -1,6 +1,16 @@
 module OSC::Util
   extend self
 
+  # Insert null and alignment
+  def align!(x : Array(UInt8))
+    pad = 4 - (x.size) % 4
+    while pad > 0
+      x.push(0_u8)
+      pad -= 1
+    end
+    x
+  end
+
   # Skip until this find a null(0_u8).
   # This returns the index of past-the-end,
   # if given data does'nt contain null.

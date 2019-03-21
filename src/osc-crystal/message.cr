@@ -13,11 +13,11 @@ module OSC
       @data += OSC::Encode.encode(address)
 
       # tag
-      @data +=  ','.bytes
+      @data += ','.bytes
       args.each do |arg|
         @data += OSC::Type.type_to_tag(arg).bytes
       end
-      OSC::Encode.align! @data
+      OSC::Util.align! @data
 
       # args
       args.each do |arg|
