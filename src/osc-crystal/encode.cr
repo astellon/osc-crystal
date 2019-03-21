@@ -1,3 +1,4 @@
+# Encoding argument value to Array(UInt8)
 module OSC::Encode
   extend self
 

@@ -37,6 +37,7 @@ module OSC::Util
     offset
   end
 
+  # Serch index of head of tag including ','
   def tag_start(data : Array(UInt8))
     pos = 0
     until pos < data.size && data[pos] === ','
@@ -45,6 +46,7 @@ module OSC::Util
     pos
   end
 
+ # Serch index of head of arguments
   def args_start(data : Array(UInt8))
     skip_padding(data, skip_until_null(data, tag_start(data)))
   end
