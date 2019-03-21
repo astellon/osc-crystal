@@ -1,19 +1,23 @@
 module OSC
   extend self
 
+  DEFAULT_BUFFER_SIZE = 64
+
   class Message
     getter data : Array(UInt8)
 
-    def initialize(address : String, tag : String, *args)
-      # malloc data Array
-      s = OSC::Util.estimate_size(address, tag, args)
-      @data = Array(UInt8).new(s)
+    def initialize(address : String, *args)
+      @data = Array(UInt8).new(DEFAULT_BUFFER_SIZE)
 
       # address
       @data += OSC::Encode.encode(address)
 
       # tag
-      @data += OSC::Encode.encode("," + tag)
+      @data +=  ','.bytes
+      args.each do |arg|
+        @data += OSC::Type.type_to_tag(arg).bytes
+      end
+      OSC::Encode.align! @data
 
       # args
       args.each do |arg|
@@ -74,7 +78,7 @@ module OSC
         tagc += 1
       end
 
-      OSC::Decode.decode(OSC::Type.type(t[tagc]), @data, pos)
+      OSC::Decode.decode(OSC::Type.tag_to_type(t[tagc]), @data, pos)
     end
 
     def to_slice

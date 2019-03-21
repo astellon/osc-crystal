@@ -5,7 +5,13 @@ module OSC::Type
   end
 
   class Time
-    @time : Float64
+    @time : Array(UInt8)
+
+    def initialize(@time : Array(UInt8))
+    end
+
+    def self.now
+    end
   end
 
   class RGB
@@ -59,7 +65,15 @@ module OSC::Type
                'I' => OSC::Type::Inf,
   }
 
-  def type(t : Char)
-    @@TypeTag[t]
+  def tag_to_type(tag : Char)
+    @@TypeTag[tag]
+  end
+
+  def type_to_tag(type : T.class) forall T
+    @@TypeTag.key_for(T)
+  end
+
+  def type_to_tag(type : T) forall T
+    @@TypeTag.key_for(T)
   end
 end
