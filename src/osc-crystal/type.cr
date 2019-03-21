@@ -70,7 +70,7 @@ module OSC::Type
     @@TypeTag[tag]
   end
 
-  {% for type in { Int32, Float32, String, OSC::Type::Blob, Int64, OSC::Type::Time, Float64, Char, OSC::Type::RGBA, OSC::Type::Midi, OSC::Type::True, OSC::Type::False, Nil, OSC::Type::Inf }%}
+  {% for type in {Int32, Float32, String, OSC::Type::Blob, Int64, OSC::Type::Time, Float64, Char, OSC::Type::RGBA, OSC::Type::Midi, OSC::Type::True, OSC::Type::False, Nil, OSC::Type::Inf} %}
   def type_to_tag(type : {{type}}.class)
     @@TypeTag.key_for({{type}})
   end

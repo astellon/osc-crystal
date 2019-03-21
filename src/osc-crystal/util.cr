@@ -46,7 +46,7 @@ module OSC::Util
     pos
   end
 
- # Serch index of head of arguments
+  # Serch index of head of arguments
   def args_start(data : Array(UInt8))
     skip_padding(data, skip_until_null(data, tag_start(data)))
   end
