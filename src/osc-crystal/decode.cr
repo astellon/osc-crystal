@@ -33,10 +33,38 @@ module OSC::Decode
   def decode(type : String.class, x : Array(UInt8), offset : Int = 0)
     String.new(x.to_unsafe + offset)
   end
+  
+  def decode(type : Char.class, x : Array(UInt8), offset : Int = 0)
+    x[offset].unsafe_chr
+  end
 
   def decode(type : Array(UInt8).class, x : Array(UInt8), offset : Int = 0)
     size = OSC::Decode.decode(Int32, x, offset)
     x[offset+4, size]
+  end
+
+  def decode(type : OSC::Type::RGBA.class, x : Array(UInt8), offset : Int = 0)
+    OSC::Type::RGBA.new(x[offset], x[offset + 1], x[offset + 2], x[offset + 3])
+  end
+
+  def decode(type : OSC::Type::Midi.class, x : Array(UInt8), offset : Int = 0)
+    OSC::Type::Midi.new(x[offset, 4])
+  end
+  
+  def decode(type : OSC::Type::True.class, x : Array(UInt8), offset : Int = 0)
+    true
+  end
+
+  def decode(type : OSC::Type::False.class, x : Array(UInt8), offset : Int = 0)
+    false
+  end
+
+  def decode(type : Nil.class, x : Array(UInt8), offset : Int = 0)
+    nil
+  end
+
+  def decode(type : OSC::Type::Inf.class, x : Array(UInt8), offset : Int = 0)
+    OSC::Type::Inf
   end
 
   def decode(type, x, offset)
