@@ -72,11 +72,11 @@ module OSC
         when 's', 'S'
           argc += 1
           pos = OSC::Util.skip_until_null(@data, pos)
-          pos = OSC::Util.skip_padding(@data, pos)
+          pos = OSC::Util.align(pos)
         when 'b'
           argc += 1
           pos += OSC::Decode.decode(Int32, @data, pos) + 4
-          # pos = OSC::Util.skip_null(@data, pos)
+          pos = OSC::Util.align(pos)
         end
         tagc += 1
       end

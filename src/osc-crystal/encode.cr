@@ -36,7 +36,7 @@ module OSC::Encode
   end
 
   def encode(x : Char)
-    x.bytes
+    OSC::Util.align!(x.bytes)
   end
 
   def encode(x : OSC::Type::RGBA)

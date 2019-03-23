@@ -11,6 +11,11 @@ module OSC::Util
     x
   end
 
+  # Calculate next aligned boundaries
+  def align(x : Int)
+    (x + 3) & ~3
+  end
+
   # Skip until this find a null charactors.
   # This returns the index of past-the-end,
   # if given data does'nt contain null.

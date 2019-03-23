@@ -40,4 +40,6 @@ m = OSC::Message.new(
 
 m1 = OSC::Message.new("/", [0_u8, 0_u8, 0_u8, 0_u8])
 
-puts m.arg(3)
+(0..m.nargs-1).each do |i|
+  puts m.arg(i)
+end
