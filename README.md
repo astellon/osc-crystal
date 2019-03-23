@@ -14,6 +14,7 @@ shown below:
 |s           |String                               |
 |b           |OSC::Type::Blob(alias of Array(UIn8))|
 |h           |Int64                                |
+|d           |Float64                              |
 |t           |Time                                 |
 |S           |String                               |
 |c           |Char                                 |
