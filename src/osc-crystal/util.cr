@@ -1,7 +1,7 @@
 module OSC::Util
   extend self
 
-  # Insert null and alignment
+  # Insert null and align push 1-4 null charactors.
   def align!(x : Array(UInt8))
     pad = 4 - (x.size) % 4
     while pad > 0
@@ -11,7 +11,7 @@ module OSC::Util
     x
   end
 
-  # Skip until this find a null(0_u8).
+  # Skip until this find a null charactors.
   # This returns the index of past-the-end,
   # if given data does'nt contain null.
   def skip_until_null(data : Array(UInt8), offset = 0)
@@ -21,7 +21,7 @@ module OSC::Util
     offset
   end
 
-  # Skip null(0_u8).
+  # Skip null charactors.
   def skip_null(data : Array(UInt8), offset = 0)
     while offset < data.size && data[offset] == 0
       offset += 1
@@ -29,7 +29,7 @@ module OSC::Util
     offset
   end
 
-  # Skip paddig (skip 0-lim additional zero)
+  # Skip paddig (proceed the position to next head of alignment).
   def skip_padding(data : Array(UInt8), offset = 0)
     while offset % 4 != 0 && offset < data.size && data[offset] == 0
       offset += 1
