@@ -19,6 +19,18 @@ module OSC::Encode
     encode(x.unsafe_as(Int64))
   end
 
+  def encode(x : Array(UInt8))
+    i = x.size
+    OSC::Util.align!(OSC::Encode.encode(i) + x)
+  end
+
+  def encode(x : Time)
+    span = x - Time.utc(1900, 1, 1)
+    sec  = span.total_seconds.to_i32
+    frac = ((span.total_milliseconds % 1000) / 200 * 1000).to_i32
+    OSC::Encode.encode(sec) + OSC::Encode.encode(frac)
+  end
+
   def encode(x : String)
     OSC::Util.align!(x.bytes)
   end
@@ -31,9 +43,8 @@ module OSC::Encode
     [x.r, x.g, x.b, x.a]
   end
 
-  def encode(x : Array(UInt8))
-    i = x.size
-    OSC::Util.align!(OSC::Encode.encode(i) + x)
+  def encode(x : OSC::Type::Midi)
+    x.data
   end
 
   def encode(x : OSC::Type::True.class)
