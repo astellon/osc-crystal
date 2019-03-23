@@ -11,6 +11,10 @@ module OSC::Type
 
     def initialize(@r, @g, @b, @a)
     end
+
+    def ==(rgba : RGBA)
+      @r == rgba.r && @g == rgba.g && @b == rgba.b && @a == rgba.a
+    end
   end
 
   class Midi
@@ -21,6 +25,10 @@ module OSC::Type
     
     def initialize(port : UInt8, status : UInt8, data1 : UInt8, data2 : UInt8)
       @data = [port, status, data1, data2]
+    end
+
+    def ==(m : Midi)
+      @data == m.data
     end
   end
 
