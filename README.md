@@ -1,6 +1,30 @@
 # osc-crystal
 
-TODO: Write a description here
+Open Sound Control implementations in Crystal.
+
+## Arguments and Type Tags
+
+We support some additional tags that be
+shown below:
+
+|OSC Type Tag|Type in Crystal                      |
+|:-----------|:--------------                      |
+|i           |Int32                                |
+|f           |Float32                              |
+|s           |String                               |
+|b           |OSC::Type::Blob(alias of Array(UIn8))|
+|h           |Int64                                |
+|t           |OSC::Type::Time (WIP)                |
+|S           |String                               |
+|c           |Char                                 |
+|r           |OSC::Type::RGBA                      |
+|m           |OSC::Type::Midi (WIP)                |
+|T           |OSC::Type::True                      |
+|F           |OSC::Type::False                     |
+|N           |Nil                                  |
+|I           |OSC::Type::Inf                       |
+
+Tags are inferred form the type of each argument. [See Usage](https://github.com/astellon/osc-crystal#usage).
 
 ## Installation
 
@@ -18,13 +42,26 @@ TODO: Write a description here
 
 ```crystal
 require "osc-crystal"
+
+# make message
+m1 = OSC::Message.new("/foo", 0_i32)
+
+# set up UDP server/client
+server = UDPSocket.new
+server.bind "localhost", 8000
+
+client = UDPSocket.new
+client.connect "localhost", 8000
+
+# send message
+client.send m1
+
+# receive massage
+message, client_addr = server.receive
+
+# decode from bytes
+m2 = OSC::Message.new(message.bytes)
 ```
-
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
 
 ## Contributing
 
