@@ -1,9 +1,9 @@
 module OSC::Util
   extend self
 
-  # Insert 1-4 null charactors to align.
+  # Insert 0-3 null charactors to align.
   def align!(x : Array(UInt8))
-    pad = 4 - (x.size) % 4
+    pad = 4 - x.size & 3
     while pad > 0
       x.push(0_u8)
       pad -= 1

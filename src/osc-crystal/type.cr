@@ -1,16 +1,6 @@
 module OSC::Type
   extend self
 
-  class Time
-    @time : Array(UInt8)
-
-    def initialize(@time : Array(UInt8))
-    end
-
-    def self.now
-    end
-  end
-
   alias Blob = Array(UInt8)
 
   class RGBA
@@ -24,12 +14,10 @@ module OSC::Type
   end
 
   class Midi
-    getter port : UInt8
-    getter status : UInt8
-    getter data1 : UInt8
-    getter data2 : UInt8
+    getter data : Array(UInt8)
 
-    def initialize(@port, @status, @data1, @data2)
+    def initialize(port : UInt8, status : UInt8, data1 : UInt8, data2 : UInt8)
+      @data = [port, status, data1, data2]
     end
   end
 
@@ -54,7 +42,7 @@ module OSC::Type
                'S' => String,
                'b' => OSC::Type::Blob,
                'h' => Int64,
-               't' => OSC::Type::Time,
+               't' => Time,
                'd' => Float64,
                'c' => Char,
                'r' => OSC::Type::RGBA,
@@ -69,7 +57,7 @@ module OSC::Type
     @@TypeTag[tag]
   end
 
-  {% for type in {Int32, Float32, String, Array(UInt8), Int64, OSC::Type::Time, Float64, Char, OSC::Type::RGBA, OSC::Type::Midi} %}
+  {% for type in {Int32, Float32, String, Array(UInt8), Int64, Time, Float64, Char, OSC::Type::RGBA, OSC::Type::Midi} %}
   def type_to_tag(type : {{type}})
     @@TypeTag.key_for({{type}})
   end

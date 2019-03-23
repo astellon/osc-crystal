@@ -32,7 +32,7 @@ module OSC::Encode
   end
 
   def encode(x : String)
-    OSC::Util.align!(x.bytes)
+    OSC::Util.align!(x.bytes << 0_u8)
   end
 
   def encode(x : Char)

@@ -17,6 +17,7 @@ module OSC
       args.each do |arg|
         @data += OSC::Type.type_to_tag(arg).bytes
       end
+      @data << 0_u8
       OSC::Util.align! @data
 
       # args
@@ -70,7 +71,7 @@ module OSC
           pos += 8
         when 's', 'S'
           argc += 1
-          pos += OSC::Util.skip_until_null(@data, pos)
+          pos = OSC::Util.skip_until_null(@data, pos)
         when 'b'
           argc += 1
           pos += OSC::Decode.decode(Int32, @data, pos)
