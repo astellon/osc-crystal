@@ -35,7 +35,7 @@ module OSC::Decode
   end
   
   def decode(type : Char.class, x : Array(UInt8), offset : Int = 0)
-    x[offset].unsafe_chr
+    x[offset + 3].unsafe_chr
   end
 
   def decode(type : Array(UInt8).class, x : Array(UInt8), offset : Int = 0)
