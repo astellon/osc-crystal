@@ -10,6 +10,6 @@ describe OSC::Message do
   end
 
   it "#tags" do
-    msg.tag.should eq "ifsbhtdScrmTFNI"
+    msg.tag.should eq "ifsbhdtscrmTFNI"
   end
 end
