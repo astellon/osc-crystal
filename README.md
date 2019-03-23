@@ -14,7 +14,7 @@ shown below:
 |s           |String                               |
 |b           |OSC::Type::Blob(alias of Array(UIn8))|
 |h           |Int64                                |
-|t           |OSC::Type::Time                      |
+|t           |Time                                 |
 |S           |String                               |
 |c           |Char                                 |
 |r           |OSC::Type::RGBA                      |
