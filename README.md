@@ -14,11 +14,11 @@ shown below:
 |s           |String                               |
 |b           |OSC::Type::Blob(alias of Array(UIn8))|
 |h           |Int64                                |
-|t           |OSC::Type::Time (WIP)                |
+|t           |OSC::Type::Time                      |
 |S           |String                               |
 |c           |Char                                 |
 |r           |OSC::Type::RGBA                      |
-|m           |OSC::Type::Midi (WIP)                |
+|m           |OSC::Type::Midi                      |
 |T           |OSC::Type::True                      |
 |F           |OSC::Type::False                     |
 |N           |Nil                                  |
@@ -39,6 +39,8 @@ Tags are inferred form the type of each argument. [See Usage](https://github.com
 2. Run `shards install`
 
 ## Usage
+
+Get start, send OSC Message via UDP soket in localhost.
 
 ```crystal
 require "osc-crystal"
