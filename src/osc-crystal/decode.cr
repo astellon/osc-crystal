@@ -34,6 +34,11 @@ module OSC::Decode
     String.new(x.to_unsafe + offset)
   end
 
+  def decode(type : Array(UInt8).class, x : Array(UInt8), offset : Int = 0)
+    size = OSC::Decode.decode(Int32, x, offset)
+    x[offset+4, size]
+  end
+
   def decode(type, x, offset)
     raise "not impled"
   end
