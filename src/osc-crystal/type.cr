@@ -1,9 +1,6 @@
 module OSC::Type
   extend self
 
-  class Blob
-  end
-
   class Time
     @time : Array(UInt8)
 
@@ -13,6 +10,8 @@ module OSC::Type
     def self.now
     end
   end
+
+  alias Blob = Array(UInt8)
 
   class RGBA
     getter r : UInt8
@@ -70,7 +69,7 @@ module OSC::Type
     @@TypeTag[tag]
   end
 
-  {% for type in {Int32, Float32, String, OSC::Type::Blob, Int64, OSC::Type::Time, Float64, Char, OSC::Type::RGBA, OSC::Type::Midi} %}
+  {% for type in {Int32, Float32, String, Array(UInt8), Int64, OSC::Type::Time, Float64, Char, OSC::Type::RGBA, OSC::Type::Midi} %}
   def type_to_tag(type : {{type}})
     @@TypeTag.key_for({{type}})
   end

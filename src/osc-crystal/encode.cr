@@ -31,7 +31,28 @@ module OSC::Encode
     [x.r, x.g, x.b, x.a]
   end
 
-  def encode(x)
+  def encode(x : Array(UInt8))
+    i = x.size
+    OSC::Util.align!(OSC::Encode.encode(i) + x)
+  end
+
+  def encode(x : OSC::Type::True.class)
     Array(UInt8).new
+  end
+
+  def encode(x : OSC::Type::False.class)
+    Array(UInt8).new
+  end
+
+  def encode(x : Nil.class)
+    Array(UInt8).new
+  end
+
+  def encode(x : OSC::Type::Inf.class)
+    Array(UInt8).new
+  end
+
+  def encode(x)
+    raise "no implement"
   end
 end
