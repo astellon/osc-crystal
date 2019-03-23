@@ -1,7 +1,7 @@
 module OSC::Util
   extend self
 
-  # Insert null and align push 1-4 null charactors.
+  # Insert 1-4 null charactors to align.
   def align!(x : Array(UInt8))
     pad = 4 - (x.size) % 4
     while pad > 0
