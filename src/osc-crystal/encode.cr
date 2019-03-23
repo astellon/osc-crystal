@@ -2,6 +2,10 @@
 module OSC::Encode
   extend self
 
+  def encode(x : UInt32)
+    [(x >> 24).to_u8, (x >> 16).to_u8, (x >> 8).to_u8, x.to_u8]
+  end
+
   def encode(x : Int32)
     [(x >> 24).to_u8, (x >> 16).to_u8, (x >> 8).to_u8, x.to_u8]
   end
@@ -21,13 +25,13 @@ module OSC::Encode
 
   def encode(x : Array(UInt8))
     i = x.size
-    OSC::Util.align!(OSC::Encode.encode(i) + x)
+    OSC::Encode.encode(i) + x
   end
 
   def encode(x : Time)
     span = x - Time.utc(1900, 1, 1)
-    sec  = span.total_seconds.to_i32
-    frac = ((span.total_milliseconds % 1000) / 200 * 1000).to_i32
+    sec  = span.total_seconds.to_u32
+    frac = ((span.total_milliseconds % 1000) / 200 * 1000).to_u32
     OSC::Encode.encode(sec) + OSC::Encode.encode(frac)
   end
 

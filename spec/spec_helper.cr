@@ -1,9 +1,8 @@
 require "spec"
 require "../src/osc-crystal.cr"
 
-def msg
-  OSC::Message.new(
-    "/foo",
+def args
+  {
     0_i32,
     0_f32,
     "String",
@@ -19,5 +18,9 @@ def msg
     OSC::Type::False,
     Nil,
     OSC::Type::Inf
-  )
+  }
+end
+
+def msg
+  OSC::Message.new("/foo", *args)
 end

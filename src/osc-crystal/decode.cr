@@ -2,6 +2,14 @@
 module OSC::Decode
   extend self
 
+  def decode(type : UInt32.class, x : Array(UInt8), offset : Int = 0)
+    y = 0_u32
+    y |= x[offset + 3].to_u32
+    y |= x[offset + 2].to_u32 << 8
+    y |= x[offset + 1].to_u32 << 16
+    y |= x[offset].to_u32 << 24
+  end
+
   def decode(type : Int32.class, x : Array(UInt8), offset : Int = 0)
     y = 0_i32
     y |= x[offset + 3].to_i32
@@ -41,6 +49,12 @@ module OSC::Decode
   def decode(type : Array(UInt8).class, x : Array(UInt8), offset : Int = 0)
     size = OSC::Decode.decode(Int32, x, offset)
     x[offset+4, size]
+  end
+
+  def decode(type : Time.class, x : Array(UInt8), offset : Int = 0)
+    sec = OSC::Decode.decode(UInt32, x, offset)
+    nano = OSC::Decode.decode(UInt32, x, offset + 4) * 200 / 1000
+    Time.utc(1900, 1, 1) + Time::Span.new(seconds: sec, nanoseconds: nano)
   end
 
   def decode(type : OSC::Type::RGBA.class, x : Array(UInt8), offset : Int = 0)

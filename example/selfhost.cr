@@ -1,6 +1,6 @@
 require "benchmark"
 require "socket"
-require "./src/osc-crystal.cr"
+require "../src/osc-crystal.cr"
 
 server = UDPSocket.new
 server.bind "localhost", 8000
@@ -16,7 +16,7 @@ m = OSC::Message.new(
   [0_u8, 0_u8, 0_u8, 0_u8],
   0_i64,
   0_f64,
-  # Time.utc_now,
+  Time.utc_now,
   "String",
   '0',
   OSC::Type::RGBA.new(0_u8, 0_u8, 0_u8, 0_u8),
