@@ -34,13 +34,13 @@ module OSC::Type
   end
 
   class True
-    def value
+    def self.value
       true
     end
   end
 
   class False
-    def value
+    def self.value
       false
     end
   end
