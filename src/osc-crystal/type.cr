@@ -22,7 +22,7 @@ module OSC::Type
 
     def initialize(@data)
     end
-    
+
     def initialize(port : UInt8, status : UInt8, data1 : UInt8, data2 : UInt8)
       @data = [port, status, data1, data2]
     end
