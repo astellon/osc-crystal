@@ -1,4 +1,3 @@
-require "benchmark"
 require "socket"
 require "../src/osc-crystal.cr"
 
