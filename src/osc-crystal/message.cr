@@ -83,6 +83,29 @@ module OSC
       OSC::Decode.decode(OSC::Type.tag_to_type(t[tagc]), @data, pos)
     end
 
+    def to_s(io)
+      io << "#<OSC::Message: " << address << "\n"
+      t = tag
+      argc = 0
+      (0..t.size - 1).each do |i|
+        io << "  [" << i << "] " << t[i] << ": "
+
+        if !"TFNI".includes?(t[i])
+          io << arg(argc)
+          argc += 1
+        end
+
+        io << "\n"
+      end
+      io << ">"
+    end
+
+    def to_s
+      io = IO::Memory.new
+      to_s(io)
+      to.to_s
+    end
+
     def to_slice
       Slice.new(@data.to_unsafe, @data.size)
     end
