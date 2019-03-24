@@ -55,4 +55,24 @@ module OSC::Util
   def args_start(data : Array(UInt8))
     skip_padding(data, skip_until_null(data, tag_start(data)) + 1)
   end
+
+  # Check if data is bundle.
+  def bundle?(data : Array(UInt8), pos = 0)
+    OSC::Decode.decode(String, data, pos) == "#bundle"
+  end
+
+  # Check if data is bundle.
+  def bundle?(data : String)
+    data.starts_with?("#bundle")
+  end
+
+  # Check if data is Message.
+  def message?(data : Array(UInt8))
+    !OSC::Util.bundle?(data)
+  end
+
+  # Check if data is Message.
+  def message?(data : String)
+    !OSC::Util.bundle?(data)
+  end
 end

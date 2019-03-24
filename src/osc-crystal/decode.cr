@@ -41,14 +41,14 @@ module OSC::Decode
   def decode(type : String.class, x : Array(UInt8), offset : Int = 0)
     String.new(x.to_unsafe + offset)
   end
-  
+
   def decode(type : Char.class, x : Array(UInt8), offset : Int = 0)
     x[offset + 3].unsafe_chr
   end
 
   def decode(type : Array(UInt8).class, x : Array(UInt8), offset : Int = 0)
     size = OSC::Decode.decode(Int32, x, offset)
-    x[offset+4, size]
+    x[offset + 4, size]
   end
 
   def decode(type : Time.class, x : Array(UInt8), offset : Int = 0)
@@ -64,7 +64,7 @@ module OSC::Decode
   def decode(type : OSC::Type::Midi.class, x : Array(UInt8), offset : Int = 0)
     OSC::Type::Midi.new(x[offset, 4])
   end
-  
+
   def decode(type : OSC::Type::True.class, x : Array(UInt8), offset : Int = 0)
     true
   end
@@ -79,6 +79,14 @@ module OSC::Decode
 
   def decode(type : OSC::Type::Inf.class, x : Array(UInt8), offset : Int = 0)
     OSC::Type::Inf
+  end
+
+  def decode(type : OSC::Bundle.class, x : Array(UInt8), offset = 0)
+    OSC::Bundle.new(x)
+  end
+
+  def decode(type : OSC::Message.class, x : Array(UInt8), offset = 0)
+    OSC::Message.new(x)
   end
 
   def decode(type, x, offset)

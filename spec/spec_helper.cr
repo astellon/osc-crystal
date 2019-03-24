@@ -17,7 +17,7 @@ def args
     OSC::Type::True,
     OSC::Type::False,
     Nil,
-    OSC::Type::Inf
+    OSC::Type::Inf,
   }
 end
 
