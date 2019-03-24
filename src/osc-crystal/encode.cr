@@ -30,7 +30,7 @@ module OSC::Encode
 
   def encode(x : Time)
     span = x - Time.utc(1900, 1, 1)
-    sec  = span.total_seconds.to_u32
+    sec = span.total_seconds.to_u32
     frac = ((span.total_milliseconds % 1000) / 200 * 1000).to_u32
     OSC::Encode.encode(sec) + OSC::Encode.encode(frac)
   end
