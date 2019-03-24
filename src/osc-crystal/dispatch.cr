@@ -4,18 +4,15 @@ module OSC
       loop do
         str, ip = socket.receive
         if OSC::Util.bundle?(str)
-          # for bundle
+          b = OSC::Bundle.new(str.bytes)
+          # TODO: write process for Bundle
         else
           m = OSC::Message.new(str.bytes)
-          if OSC.match(m.address, address)
+          if File.match?(m.address, address)
             block.call(m)
           end
         end
       end
     end
-  end
-
-  def match(pattern : String, address : String)
-    true
   end
 end
