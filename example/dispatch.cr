@@ -3,21 +3,29 @@ require "../src/osc-crystal.cr"
 
 server = UDPSocket.new
 server.bind "localhost", 8000
+osc_server = OSC::Server.new(server)
 
 client = UDPSocket.new
 client.connect "localhost", 8000
+osc_client = OSC::Client.new(client)
 
 m = OSC::Message.new(
-  "/foo",
+  "/*",
   1_i32
 )
 
-d = OSC.dispatch(server, "/foo") do |m|
-  puts m
+osc_server.dispatch("/foo") do |m|
+  puts "dis 1"
 end
 
-client.send m
-client.send m
+osc_server.dispatch("/foo") do |m|
+  puts "dis 2"
+end
+
+osc_server.run
+
+osc_client.send m
+osc_client.send m
 
 sleep(1)
 
