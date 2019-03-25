@@ -1,12 +1,14 @@
 require "socket"
 require "../src/osc-crystal.cr"
 
+# set up UDP server/client
 server = UDPSocket.new
 server.bind "localhost", 8000
 
 client = UDPSocket.new
 client.connect "localhost", 8000
 
+# make message
 m = OSC::Message.new(
   "/foo",
   0_i32,
@@ -26,13 +28,16 @@ m = OSC::Message.new(
   OSC::Type::Inf
 )
 
+# send message
 client.send m
 
+# receive massage
 message, client_addr = server.receive
 
-client.close
-server.close
-
+# decode and show message
 if OSC::Util.message?(message)
   puts OSC::Message.new(message.bytes)
 end
+
+client.close
+server.close
