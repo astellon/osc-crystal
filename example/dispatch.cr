@@ -9,23 +9,28 @@ client = UDPSocket.new
 client.connect "localhost", 8000
 osc_client = OSC::Client.new(client)
 
-m = OSC::Message.new(
-  "/*",
+m1 = OSC::Message.new(
+  "/*/*",
   1_i32
 )
 
-osc_server.dispatch("/foo") do |m|
-  puts "dis 1"
+m2 = OSC::Message.new(
+  "/*/hoge",
+  1_i32
+)
+
+osc_server.dispatch("/foo/hoge") do |m|
+  puts "dispatched: /foo/hoge for #{m.address}"
 end
 
-osc_server.dispatch("/foo") do |m|
-  puts "dis 2"
+osc_server.dispatch("/foo/fuga") do |m|
+  puts "dispatched: /foo/fuga for #{m.address}"
 end
 
 osc_server.run
 
-osc_client.send m
-osc_client.send m
+osc_client.send m1
+osc_client.send m2
 
 sleep(1)
 
