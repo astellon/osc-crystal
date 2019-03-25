@@ -7,7 +7,7 @@ module OSC
     end
 
     def dispatch(address : String, &block : OSC::Message ->)
-      @methods << { address, block }
+      @methods << {address, block}
     end
 
     def run
