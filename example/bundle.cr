@@ -1,7 +1,6 @@
 require "socket"
 require "../src/osc-crystal.cr"
 
-
 # set up UDP server/client
 server = UDPSocket.new
 server.bind "localhost", 8000
