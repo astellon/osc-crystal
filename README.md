@@ -41,7 +41,7 @@ Tags are inferred form the type of each argument. [See Usage](https://github.com
 
    ```yaml
    dependencies:
-     oscr:
+     osc-crystal:
        github: astellon/osc-crystal
    ```
 
