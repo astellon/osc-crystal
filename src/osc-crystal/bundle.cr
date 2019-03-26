@@ -20,7 +20,7 @@ module OSC
     end
 
     def time
-      OSC::Encode.decode(Time, @data, 8)
+      OSC::Decode.decode(Time, @data, 8)
     end
 
     def nelms
