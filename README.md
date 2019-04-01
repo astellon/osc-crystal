@@ -168,3 +168,4 @@ server.close
 ## Contributors
 
 - [astellon](https://github.com/astellon) - creator and maintainer
+- [Tobaloidee](https://github.com/Tobaloidee) - logo
