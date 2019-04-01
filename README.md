@@ -1,3 +1,5 @@
+<p align="center"><img src="/logo/logotype-horizontal.png"></p>
+
 # osc-crystal
 
 Open Sound Control implementation in Crystal.
