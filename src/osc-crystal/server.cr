@@ -8,7 +8,7 @@ module OSC
       @methods_for_bundle = Array((OSC::Bundle ->)).new
     end
 
-    def dispatch(address : String, &block : OSC::Message->)
+    def dispatch(address : String, &block : OSC::Message ->)
       @methods_for_message << {address, block}
     end
 

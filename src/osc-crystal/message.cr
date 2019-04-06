@@ -13,7 +13,7 @@ module OSC
       OSC::Encode.encode(@data, address)
 
       # tag
-      @data << 44_u8  # ','
+      @data << 44_u8 # ','
       args.each do |arg|
         @data << OSC::Type.type_to_tag(arg)
       end
