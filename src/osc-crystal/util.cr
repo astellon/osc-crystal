@@ -58,17 +58,17 @@ module OSC::Util
 
   # Check if data is bundle.
   def bundle?(data : Array(UInt8), pos = 0)
-    OSC::Decode.decode(String, data, pos) == "#bundle"
+    data[pos] === '#'
   end
 
   # Check if data is bundle.
   def bundle?(data : String)
-    data.starts_with?("#bundle")
+    data.starts_with?("#")
   end
 
   # Check if data is Message.
-  def message?(data : Array(UInt8))
-    !OSC::Util.bundle?(data)
+  def message?(data : Array(UInt8), pos = 0)
+    !OSC::Util.bundle?(data, pos)
   end
 
   # Check if data is Message.
