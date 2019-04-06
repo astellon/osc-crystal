@@ -13,9 +13,9 @@ module OSC
       OSC::Encode.encode(@data, address)
 
       # tag
-      @data += ','.bytes
+      @data << 44_u8  # ','
       args.each do |arg|
-        @data += OSC::Type.type_to_tag(arg).bytes
+        @data << OSC::Type.type_to_tag(arg)
       end
       @data << 0_u8
       OSC::Util.align! @data
