@@ -10,7 +10,7 @@ module OSC
       @data = Array(UInt8).new(DEFAULT_BUFFER_SIZE)
 
       # address
-      @data += OSC::Encode.encode(address)
+      OSC::Encode.encode(@data, address)
 
       # tag
       @data += ','.bytes
@@ -22,7 +22,7 @@ module OSC
 
       # args
       args.each do |arg|
-        @data += OSC::Encode.encode(arg)
+        OSC::Encode.encode(@data, arg)
       end
     end
 
