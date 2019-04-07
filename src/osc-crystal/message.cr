@@ -83,21 +83,21 @@ module OSC
       OSC::Decode.decode(OSC::Type.tag_to_type(t[tagc]), @data, pos)
     end
 
-    def to_s(io)
-      io << "#<OSC::Message: " << address << "\n"
-      t = tag
-      argc = 0
-      (0..t.size - 1).each do |i|
-        io << "  [" << i << "] " << t[i] << ": "
-
-        if !"TFNI".includes?(t[i])
-          io << arg(argc)
-          argc += 1
-        end
-
-        io << "\n"
+    def arg(type : T.class, index : Int) forall T
+      case a = arg(index)
+      when T
+        return a.as(T)
+      else
+        raise "Not Satisfy the Type of the Argument"
       end
-      io << ">"
+    end
+
+    def [](index : Int)
+      arg(index)
+    end
+
+    def to_s(io)
+      io << "#<OSC::Message: " << address << tag << ">"
     end
 
     def to_s

@@ -13,25 +13,8 @@ describe OSC::Message do
     msg.tag.should eq "ifsbhdtscrmTFNI"
   end
 
-  it "#arg" do
-    m = OSC::Message.new(
-      "/foo",
-      0_i32,
-      0_f32,
-      "String",
-      [0_u8, 0_u8, 0_u8, 0_u8],
-      0_i64,
-      0_f64,
-      Time.utc_now, # => cannot compare
-      "String",
-      '0',
-      OSC::Type::RGBA.new(0_u8, 0_u8, 0_u8, 0_u8),
-      OSC::Type::Midi.new(0_u8, 0_u8, 0_u8, 0_u8),
-      OSC::Type::True,
-      OSC::Type::False,
-      Nil,
-      OSC::Type::Inf
-    )
+  it "#arg(index : Int)" do
+    m = msg
 
     (0..m.nargs - 1).each do |i|
       if i != 6
@@ -40,5 +23,11 @@ describe OSC::Message do
         # ??
       end
     end
+  end
+
+  it "#arg(type : T.class, index : Int) forall T" do
+    m = OSC::Message.new("/foo", 1_i32, 2_i64)
+    m.arg(Int32, 0).should eq 1_i32
+    m.arg(Int64, 1).should eq 2_i64
   end
 end
