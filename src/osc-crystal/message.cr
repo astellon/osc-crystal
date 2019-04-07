@@ -45,10 +45,13 @@ module OSC
       sum = 0
       tag.each_char do |c|
         case c
-        when 'T', 'F', 'N', 'I', '[', ']'
+        when 'i', 'f', 's', 'b', 'h', 'd', 't', 'S', 'c', 'r', 'm'
+          sum += 1
+        when 'T', 'F', 'N', 'I'
           # no argument
         else
-          sum += 1
+          # unknown type tag
+          return 0
         end
       end
       sum
