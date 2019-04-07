@@ -18,7 +18,7 @@ describe OSC::Message do
 
     (0..m.nargs - 1).each do |i|
       if i != 6
-        m.arg(i).should eq args[i]
+        m[i].should eq args[i]
       else
         # ??
       end
