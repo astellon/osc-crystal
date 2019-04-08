@@ -1,6 +1,6 @@
 module OSC
   alias BudleElement = OSC::Bundle | OSC::Message
-  
+
   class Bundle
     getter data : Array(UInt8)
 
@@ -64,6 +64,14 @@ module OSC
       ret = elm?(index)
       raise "No Element at the give index" if ret.nil?
       ret
+    end
+
+    def []?(index : Int)
+      elm?(index)
+    end
+
+    def [](index : Int)
+      elm(index)
     end
 
     def to_s(io)
