@@ -90,7 +90,6 @@ m = OSC::Message.new(
       0_i64,
       0_f64,
       Time.utc_now,
-      "String",
       '0',
       OSC::Type::RGBA.new(0_u8, 0_u8, 0_u8, 0_u8),
       OSC::Type::Midi.new(0_u8, 0_u8, 0_u8, 0_u8),
@@ -100,7 +99,7 @@ m = OSC::Message.new(
       OSC::Type::Inf
     )
 
-m.tag  # => ifsbhdtscrmTFNI
+m.tag  # => ifsbhdtcrmTFNI
 ```
 
 The best way to handle the messages is to use `OSC::Server` and `OSC::Client`. You can specify the address and the process that will be involked when the given socket receives OSC messages. Example:
