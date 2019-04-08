@@ -57,7 +57,7 @@ module OSC
       sum
     end
 
-    def arg(index : Int)
+    def arg?(index : Int)
       return nil if index > nargs
 
       t = tag
@@ -90,6 +90,12 @@ module OSC
       OSC::Decode.decode(OSC::Type.tag_to_type(t[tagc]), @data, pos)
     end
 
+    def arg(index : Int)
+      ret = arg?(index)
+      raise "No Argument at the given index." if ret.nil?
+      ret
+    end
+
     def arg(type : T.class, index : Int) forall T
       case a = arg(index)
       when T
@@ -97,6 +103,10 @@ module OSC
       else
         raise "Not Satisfy the Type of the Argument"
       end
+    end
+
+    def []?(index : Int)
+      arg?(index)
     end
 
     def [](index : Int)

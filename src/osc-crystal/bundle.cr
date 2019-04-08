@@ -37,7 +37,7 @@ module OSC
       elmc
     end
 
-    def elm(index : Int)
+    def elm?(index : Int)
       elmc = 0
       pos = 16 # skip "#bundle\0" and timetag
       len = @data.size
@@ -56,6 +56,12 @@ module OSC
       else
         return OSC::Message.new(@data[pos + 4, size])
       end
+    end
+
+    def elm(index : Int)
+      ret = elm?(index)
+      raise "No Element at the give index" if ret.nil?
+      ret
     end
 
     def to_s(io)
