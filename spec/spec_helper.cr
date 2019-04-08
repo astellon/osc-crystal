@@ -24,3 +24,21 @@ end
 def msg
   OSC::Message.new("/foo", *args)
 end
+
+def bun
+  b1 = OSC::Bundle.new(Time.utc_now, OSC::Message.new("/foo", *args))
+  OSC::Bundle.new(Time.utc_now, OSC::Message.new("/foo", *args), b1)
+end
+
+def parse_rec(bundle : OSC::Bundle)
+  (0..bundle.nelms-1).each do |i|
+    elm = bundle.elm(i)
+    raise "got nil" if elm.nil?
+    case elm
+    when OSC::Bundle
+      parse_rec(elm)
+    when OSC::Message
+      elm.address.should eq "/foo"
+    end
+  end
+end

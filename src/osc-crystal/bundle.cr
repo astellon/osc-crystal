@@ -7,11 +7,11 @@ module OSC
       @data = "#bundle\0".bytes
 
       # timetag
-      @data += OSC::Encode.encode(time)
+      OSC::Encode.encode(@data, time)
 
       # elms (expected to be aligned)
       elms.each do |elm|
-        @data += OSC::Encode.encode(elm.data.size)
+        OSC::Encode.encode(@data, elm.data.size)
         @data += elm.data
       end
     end
@@ -51,7 +51,7 @@ module OSC
 
       size = OSC::Decode.decode(Int32, @data, pos)
 
-      if OSC::Util.bundle?(@data, pos)
+      if OSC::Util.bundle?(@data, pos + 4)
         return OSC::Bundle.new(@data[pos + 4, size])
       else
         return OSC::Message.new(@data[pos + 4, size])

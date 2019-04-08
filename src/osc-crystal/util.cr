@@ -58,7 +58,8 @@ module OSC::Util
 
   # Check if data is bundle.
   def bundle?(data : Array(UInt8), pos = 0)
-    data[pos] === '#'
+    data[pos]
+    '#' === data[pos]
   end
 
   # Check if data is bundle.
