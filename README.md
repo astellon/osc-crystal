@@ -10,12 +10,11 @@ This implementation is based on the [The Open Sound Control 1.0 Specification](h
 
 - encode/decode OSC message
 - support extra type-tags associated with the tyeps in Crystal
-- on receiving message, pattern matching and calling back concurrently
+- on receiving message, pattern match the address and callback concurrently
 
 ## Arguments and Type Tags
 
-This supports some additional tags that be
-shown below:
+This supports basic tags and some additional ones that be shown below:
 
 |OSC Type Tag|Type in Crystal                      |
 |:-----------|:--------------                      |
@@ -50,7 +49,7 @@ Tags are inferred form the type of each argument. [See Usage](https://github.com
 
 ## Usage
 
-Get start, send OSC Message via UDP soket in localhost.
+Getting start, send OSC Message via UDP soket in localhost.
 
 ```crystal
 require "osc-crystal"
@@ -99,7 +98,9 @@ m = OSC::Message.new(
       OSC::Type::Inf
     )
 
-m.tag  # => ifsbhdtcrmTFNI
+m.address # => "/foo"
+m.tag     # => ifsbhdtcrmTFNI
+m.arg(0)  # => 0
 ```
 
 The best way to handle the messages is to use `OSC::Server` and `OSC::Client`. You can specify the address and the process that will be involked when the given socket receives OSC messages. Example:
@@ -137,7 +138,7 @@ osc_server.dispatch("/foo/fuga") do |m|
   puts "dispatched: /foo/fuga for #{m.address}"
 end
 
-# run server concurrently (return immediately)
+# run the server concurrently (return immediately)
 osc_server.run
 
 # send messages
