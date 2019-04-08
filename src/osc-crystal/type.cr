@@ -1,6 +1,8 @@
 module OSC::Type
   extend self
 
+  alias Types = Int32 | Float32 | String | Blob | Int64 | Float64 | Time | Char | RGBA | Midi | True | False | Nil | Inf
+
   alias Blob = Array(UInt8)
 
   class RGBA
