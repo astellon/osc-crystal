@@ -86,7 +86,7 @@ module OSC
         end
         tagc += 1
       end
-      
+
       OSC::Decode.decode(OSC::Type.tag_to_type(t[tagc]), @data, pos)
     end
 

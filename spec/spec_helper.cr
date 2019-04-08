@@ -31,7 +31,7 @@ def bun
 end
 
 def parse_rec(bundle : OSC::Bundle)
-  (0..bundle.nelms-1).each do |i|
+  (0..bundle.nelms - 1).each do |i|
     elm = bundle.elm(i)
     raise "got nil" if elm.nil?
     case elm
