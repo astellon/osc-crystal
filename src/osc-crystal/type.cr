@@ -51,7 +51,6 @@ module OSC::Type
     'i' => Int32,
     'f' => Float32,
     's' => String,
-    'S' => String,
     'b' => OSC::Type::Blob,
     'h' => Int64,
     't' => Time,

@@ -10,7 +10,6 @@ def args
     0_i64,
     0_f64,
     Time.utc_now,
-    "String",
     '0',
     OSC::Type::RGBA.new(0_u8, 0_u8, 0_u8, 0_u8),
     OSC::Type::Midi.new(0_u8, 0_u8, 0_u8, 0_u8),

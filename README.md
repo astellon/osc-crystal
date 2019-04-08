@@ -26,7 +26,6 @@ shown below:
 |h           |Int64                                |
 |d           |Float64                              |
 |t           |Time                                 |
-|S           |String                               |
 |c           |Char                                 |
 |r           |OSC::Type::RGBA                      |
 |m           |OSC::Type::Midi                      |

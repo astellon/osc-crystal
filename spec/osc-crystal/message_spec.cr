@@ -10,7 +10,7 @@ describe OSC::Message do
   end
 
   it "#tags" do
-    msg.tag.should eq "ifsbhdtscrmTFNI"
+    msg.tag.should eq "ifsbhdtcrmTFNI"
   end
 
   it "#arg(index : Int)" do

@@ -45,7 +45,7 @@ module OSC
       sum = 0
       tag.each_char do |c|
         case c
-        when 'i', 'f', 's', 'b', 'h', 'd', 't', 'S', 'c', 'r', 'm'
+        when 'i', 'f', 's', 'b', 'h', 'd', 't', 'c', 'r', 'm'
           sum += 1
         when 'T', 'F', 'N', 'I'
           # no argument
@@ -75,7 +75,7 @@ module OSC
         when 'h', 't', 'd'
           argc += 1
           pos += 8
-        when 's', 'S'
+        when 's'
           argc += 1
           pos = OSC::Util.skip_until_null(@data, pos)
           pos = OSC::Util.skip_padding(@data, pos)
