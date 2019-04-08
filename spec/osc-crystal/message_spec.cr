@@ -18,9 +18,9 @@ describe OSC::Message do
 
     (0..m.nargs - 1).each do |i|
       if i != 6
-        m[i].should eq args[i]
+        m.arg(i).should eq args[i]
       else
-        # ??
+        m.arg(Time, i).should be < Time.utc_now
       end
     end
 
