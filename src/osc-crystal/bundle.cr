@@ -1,4 +1,6 @@
 module OSC
+  alias BudleElement = OSC::Bundle | OSC::Message
+  
   class Bundle
     getter data : Array(UInt8)
 
