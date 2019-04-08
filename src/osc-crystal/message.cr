@@ -61,6 +61,9 @@ module OSC
       return nil if index > nargs
 
       t = tag
+
+      return nil if t.size == 0
+
       pos = OSC::Util.args_start(@data)
 
       argc = tagc = 0
@@ -83,6 +86,7 @@ module OSC
         end
         tagc += 1
       end
+      
       OSC::Decode.decode(OSC::Type.tag_to_type(t[tagc]), @data, pos)
     end
 

@@ -23,6 +23,11 @@ describe OSC::Message do
         # ??
       end
     end
+
+    m = OSC::Message.new("/foo")
+    m = OSC::Message.new(m.data)
+    m.tag.should eq ""
+    m.arg(0).should be_nil
   end
 
   it "#arg(type : T.class, index : Int) forall T" do
