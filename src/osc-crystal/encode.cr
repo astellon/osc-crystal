@@ -28,6 +28,7 @@ module OSC::Encode
   def encode(data : Array(UInt8), x : Array(UInt8))
     OSC::Encode.encode(data, x.size)
     data.concat(x)
+    OSC::Util.align!(data)
   end
 
   def encode(data : Array(UInt8), x : Time)
