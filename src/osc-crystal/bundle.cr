@@ -1,3 +1,7 @@
+require "./type.cr"
+require "./encode.cr"
+require "./decode.cr"
+
 module OSC
   alias BudleElement = OSC::Bundle | OSC::Message
 

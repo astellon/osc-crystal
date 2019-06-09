@@ -1,3 +1,5 @@
+require "./type.cr"
+
 # Decoding argument value from Array(UInt8)
 module OSC::Decode
   extend self
