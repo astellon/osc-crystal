@@ -8,32 +8,32 @@ This implementation is based on the [The Open Sound Control 1.0 Specification](h
 
 ## Features
 
-- encode/decode OSC message
-- support extra type-tags associated with the tyeps in Crystal
-- on receiving message, pattern match the address and callback concurrently
+- Encode/Decode OSC message
+- Support extra type-tags associated with the tyeps in Crystal
+- On receiving message, matching the address patterns and callback concurrently
 
 ## Arguments and Type Tags
 
-This supports basic tags and some additional ones that be shown below:
+This supports basic type tags and some additional ones that be shown below:
 
-|OSC Type Tag|Type in Crystal                      |
-|:-----------|:--------------                      |
-|i           |Int32                                |
-|f           |Float32                              |
-|s           |String                               |
-|b           |OSC::Type::Blob(alias of Array(UIn8))|
-|h           |Int64                                |
-|d           |Float64                              |
-|t           |Time                                 |
-|c           |Char                                 |
-|r           |OSC::Type::RGBA                      |
-|m           |OSC::Type::Midi                      |
-|T           |OSC::Type::True                      |
-|F           |OSC::Type::False                     |
-|N           |Nil                                  |
-|I           |OSC::Type::Inf                       |
+|OSC Type Tag|Type in Crystal                           |
+|:-----------|:--------------                           |
+|i           |`Int32`                                   |
+|f           |`Float32`                                 |
+|s           |`String`                                  |
+|b           |`OSC::Type::Blob`(alias of `Array(UIn8)`) |
+|h           |`Int64`                                   |
+|d           |`Float64`                                 |
+|t           |`Time`                                    |
+|c           |`Char`                                    |
+|r           |`OSC::Type::RGBA`                         |
+|m           |`OSC::Type::Midi`                         |
+|T           |`OSC::Type::True`                         |
+|F           |`OSC::Type::False`                        |
+|N           |`Nil`                                     |
+|I           |`OSC::Type::Inf`                          |
 
-Tags are inferred form the type of each argument. [See Usage](https://github.com/astellon/osc-crystal#usage).
+The type tags are determined by the type of each argument. [See Usage](https://github.com/astellon/osc-crystal#usage).
 
 ## Installation
 
@@ -49,7 +49,7 @@ Tags are inferred form the type of each argument. [See Usage](https://github.com
 
 ## Usage
 
-Getting start, send OSC Message via UDP soket in localhost.
+Getting started, let's send an OSC Message via UDP soket to localhost.
 
 ```crystal
 require "osc-crystal"
@@ -77,7 +77,7 @@ m2 = OSC::Message.new(message.bytes)
 m2.arg(0) # => 0
 ```
 
-Tags are inferred form the type of each argument like:
+The type tags are determined by the type of each argument like:
 
 ```crystal
 m = OSC::Message.new(
@@ -166,5 +166,5 @@ server.close
 
 ## Contributors
 
-- [astellon](https://github.com/astellon) - creator and maintainer
+- [Astellon](https://github.com/astellon) - creator and maintainer
 - [Tobaloidee](https://github.com/Tobaloidee) - logo
