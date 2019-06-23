@@ -51,7 +51,7 @@ module OSC
           # no argument
         else
           # unknown type tag
-          return 0
+          return -1
         end
       end
       sum
@@ -83,6 +83,11 @@ module OSC
           argc += 1
           pos += OSC::Decode.decode(Int32, @data, pos) + 4
           pos = OSC::Util.skip_padding(@data, pos)
+        when 'T', 'F', 'N', 'I'
+          # no argument
+        else
+          # unknown type tag
+          return nil
         end
         tagc += 1
       end
