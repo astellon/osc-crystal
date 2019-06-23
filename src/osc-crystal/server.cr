@@ -1,5 +1,3 @@
-require "socket"
-
 module OSC
   class Server
     def initialize(@socket : Socket)
