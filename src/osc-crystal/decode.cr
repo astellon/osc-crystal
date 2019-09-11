@@ -53,7 +53,7 @@ module OSC::Decode
 
   def decode(type : Time.class, x : Array(UInt8), offset : Int = 0)
     sec = OSC::Decode.decode(UInt32, x, offset)
-    nano = OSC::Decode.decode(UInt32, x, offset + 4) * 200 // 1000
+    nano = OSC::Decode.decode(UInt32, x, offset + 4) * 200 * 1000
     Time.utc(1900, 1, 1) + Time::Span.new(seconds: sec, nanoseconds: nano)
   end
 

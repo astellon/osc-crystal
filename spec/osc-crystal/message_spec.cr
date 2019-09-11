@@ -20,7 +20,7 @@ describe OSC::Message do
       if i != 6
         m.arg(i).should eq args[i]
       else
-        m.arg(Time, i).should be < Time.utc_now
+        m.arg(Time, i).to_unix_ms.should eq args[i].as(Time).to_unix_ms
       end
     end
 
