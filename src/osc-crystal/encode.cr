@@ -3,17 +3,17 @@ module OSC::Encode
   extend self
 
   def encode(data : Array(UInt8), x : UInt32)
-    data.push((x >> 24).to_u8, (x >> 16).to_u8, (x >> 8).to_u8, x.to_u8)
+    data.push((x >> 24).to_u8!, (x >> 16).to_u8!, (x >> 8).to_u8!, x.to_u8!)
   end
 
   def encode(data : Array(UInt8), x : Int32)
-    data.push((x >> 24).to_u8, (x >> 16).to_u8, (x >> 8).to_u8, x.to_u8)
+    data.push((x >> 24).to_u8!, (x >> 16).to_u8!, (x >> 8).to_u8!, x.to_u8!)
   end
 
   def encode(data : Array(UInt8), x : Int64)
     data.push(
-      (x >> 56).to_u8, (x >> 48).to_u8, (x >> 40).to_u8, (x >> 32).to_u8,
-      (x >> 24).to_u8, (x >> 16).to_u8, (x >> 8).to_u8, x.to_u8
+      (x >> 56).to_u8!, (x >> 48).to_u8!, (x >> 40).to_u8!, (x >> 32).to_u8!,
+      (x >> 24).to_u8!, (x >> 16).to_u8!, (x >> 8).to_u8!, x.to_u8!
     )
   end
 
@@ -34,7 +34,7 @@ module OSC::Encode
   def encode(data : Array(UInt8), x : Time)
     span = x - Time.utc(1900, 1, 1)
     sec = span.total_seconds.to_u32
-    frac = ((span.total_milliseconds % 1000) / 200 * 1000).to_u32
+    frac = ((span.microseconds + 1) * 1.0e-6 * (1_u64 << 32)).to_u32
     OSC::Encode.encode(data, sec)
     OSC::Encode.encode(data, frac)
   end
