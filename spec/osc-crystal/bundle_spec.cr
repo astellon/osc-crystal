@@ -7,7 +7,7 @@ describe OSC::Bundle do
 
   it "#time" do
     t = bun.time
-    t.should be < Time.utc_now
+    t.should be < Time.utc
   end
 
   it "#nelms" do

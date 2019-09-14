@@ -17,7 +17,7 @@ m = OSC::Message.new(
   [0_u8, 0_u8, 0_u8, 0_u8],
   0_i64,
   0_f64,
-  Time.utc_now,
+  Time.utc,
   "String",
   '0',
   OSC::Type::RGBA.new(0_u8, 0_u8, 0_u8, 0_u8),

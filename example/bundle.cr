@@ -9,7 +9,7 @@ client = UDPSocket.new
 client.connect "localhost", 8000
 
 # initialize bundle
-b = OSC::Bundle.new(Time.utc_now, OSC::Message.new("/foo", 1), OSC::Message.new("/foo", 2))
+b = OSC::Bundle.new(Time.utc, OSC::Message.new("/foo", 1), OSC::Message.new("/foo", 2))
 
 # send bundle
 client.send b
