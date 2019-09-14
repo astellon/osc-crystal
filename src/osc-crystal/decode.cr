@@ -66,11 +66,11 @@ module OSC::Decode
   end
 
   def decode(type : OSC::Type::True.class, x : Array(UInt8), offset : Int = 0)
-    true
+    OSC::Type::True
   end
 
   def decode(type : OSC::Type::False.class, x : Array(UInt8), offset : Int = 0)
-    false
+    OSC::Type::False
   end
 
   def decode(type : Nil.class, x : Array(UInt8), offset : Int = 0)
