@@ -9,7 +9,7 @@ def args
     [0_u8, 0_u8, 0_u8, 0_u8],
     0_i64,
     0_f64,
-    Time.utc,
+    Time.utc(1997, 10, 7, 11, 31, 13),
     '0',
     OSC::Type::RGBA.new(0_u8, 0_u8, 0_u8, 0_u8),
     OSC::Type::Midi.new(0_u8, 0_u8, 0_u8, 0_u8),
@@ -25,8 +25,8 @@ def msg
 end
 
 def bun
-  b1 = OSC::Bundle.new(Time.utc_now, OSC::Message.new("/foo", *args))
-  OSC::Bundle.new(Time.utc_now, OSC::Message.new("/foo", *args), b1)
+  b1 = OSC::Bundle.new(Time.utc, OSC::Message.new("/foo", *args))
+  OSC::Bundle.new(Time.utc, OSC::Message.new("/foo", *args), b1)
 end
 
 def parse_rec(bundle : OSC::Bundle)
