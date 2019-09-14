@@ -2,6 +2,8 @@
 
 # osc-crystal
 
+[![Build Status](https://travis-ci.org/astellon/osc-crystal.svg?branch=master)](https://travis-ci.org/astellon/osc-crystal)
+
 Open Sound Control implementation in Crystal.
 
 This implementation is based on the [The Open Sound Control 1.0 Specification](http://opensoundcontrol.org/spec-1_0) and including some extensions (extra type-tag and dispatching).
@@ -88,7 +90,7 @@ m = OSC::Message.new(
       [0_u8, 0_u8, 0_u8, 0_u8],
       0_i64,
       0_f64,
-      Time.utc_now,
+      Time.utc,
       '0',
       OSC::Type::RGBA.new(0_u8, 0_u8, 0_u8, 0_u8),
       OSC::Type::Midi.new(0_u8, 0_u8, 0_u8, 0_u8),
