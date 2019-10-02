@@ -23,10 +23,12 @@ m2 = OSC::Message.new(
 
 # add methods for specific address
 osc_server.dispatch("/foo/hoge") do |m|
+  sleep Random.rand
   puts "dispatched: /foo/hoge for #{m.address}"
 end
 
 osc_server.dispatch("/foo/fuga") do |m|
+  sleep Random.rand
   puts "dispatched: /foo/fuga for #{m.address}"
 end
 

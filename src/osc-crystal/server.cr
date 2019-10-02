@@ -23,13 +23,13 @@ module OSC
           if OSC::Util.bundle?(str)
             b = OSC::Bundle.new(str.bytes)
             @methods_for_bundle.each do |method|
-              method.call(b)
+              spawn method.call(b)
             end
           else
             m = OSC::Message.new(str.bytes)
             @methods_for_message.each do |address, method|
               if File.match?(m.address, address)
-                method.call(m)
+                spawn method.call(m)
               end
             end
           end
