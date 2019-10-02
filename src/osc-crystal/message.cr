@@ -75,7 +75,7 @@ module OSC
           argc += 1
         else
           # unknown type tag
-          return nil
+          raise OSC::UnsupportedTypeTag.new
         end
         tagc += 1
       end

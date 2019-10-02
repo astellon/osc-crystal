@@ -1,5 +1,6 @@
 require "./osc-crystal/type.cr"
 require "./osc-crystal/util.cr"
+require "./osc-crystal/exception.cr"
 require "./osc-crystal/encode.cr"
 require "./osc-crystal/decode.cr"
 require "./osc-crystal/message.cr"
