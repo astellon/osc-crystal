@@ -65,7 +65,7 @@ module OSC::Encode
     # nop
   end
 
-  def encode(data : Array(UInt8), x : Nil.class)
+  def encode(data : Array(UInt8), x : Nil)
     # nop
   end
 

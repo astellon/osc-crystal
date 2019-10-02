@@ -87,13 +87,13 @@ module OSC::Type
     @@TagToType[tag]
   end
 
-  {% for type in {Int32, Float32, String, Array(UInt8), Int64, Time, Float64, Char, OSC::Type::RGBA, OSC::Type::Midi} %}
+  {% for type in {Int32, Float32, String, Array(UInt8), Int64, Time, Float64, Char, OSC::Type::RGBA, OSC::Type::Midi, Nil} %}
   def type_to_tag(type : {{type}})
     @@TypeToTag[{{type}}]
   end
   {% end %}
 
-  {% for type in {OSC::Type::True, OSC::Type::False, Nil, OSC::Type::Inf} %}
+  {% for type in {OSC::Type::True, OSC::Type::False, OSC::Type::Inf} %}
   def type_to_tag(type : {{type}}.class)
     @@TypeToTag[{{type}}]
   end

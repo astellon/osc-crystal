@@ -42,27 +42,15 @@ module OSC
     end
 
     def nargs
-      sum = 0
-      tag.each_char do |c|
-        case c
-        when 'i', 'f', 's', 'b', 'h', 'd', 't', 'c', 'r', 'm'
-          sum += 1
-        when 'T', 'F', 'N', 'I'
-          # no argument
-        else
-          # unknown type tag
-          return -1
-        end
-      end
-      sum
+      tag.size
     end
 
-    def arg?(index : Int)
-      return nil if index > nargs
+    def arg(index : Int)
+      raise IndexError.new if index > nargs
 
-      t = tag
+      t = tag  # pre-call
 
-      return nil if t.size == 0
+      raise IndexError.new if t.size == 0
 
       pos = OSC::Util.args_start(@data)
 
@@ -84,7 +72,7 @@ module OSC
           pos += OSC::Decode.decode(Int32, @data, pos) + 4
           pos = OSC::Util.skip_padding(@data, pos)
         when 'T', 'F', 'N', 'I'
-          # no argument
+          argc += 1
         else
           # unknown type tag
           return nil
@@ -95,12 +83,6 @@ module OSC
       OSC::Decode.decode(OSC::Type.tag_to_type(t[tagc]), @data, pos)
     end
 
-    def arg(index : Int)
-      ret = arg?(index)
-      raise "No Argument at the given index." if ret.nil?
-      ret
-    end
-
     def arg(type : T.class, index : Int) forall T
       case a = arg(index)
       when T
@@ -108,10 +90,6 @@ module OSC
       else
         raise "Not Satisfy the Type of the Argument"
       end
-    end
-
-    def []?(index : Int)
-      arg?(index)
     end
 
     def [](index : Int)

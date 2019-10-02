@@ -13,6 +13,10 @@ describe OSC::Message do
     msg.tag.should eq "ifsbhdtcrmTFNI"
   end
 
+  it "nargs" do
+    msg.nargs.should eq args.size
+  end
+
   it "#arg(index : Int)" do
     m = msg
 
@@ -23,11 +27,6 @@ describe OSC::Message do
         m.arg(Time, i).to_unix_ms.should eq args[i].as(Time).to_unix_ms
       end
     end
-
-    m = OSC::Message.new("/foo")
-    m = OSC::Message.new(m.data)
-    m.tag.should eq ""
-    m.arg?(0).should be_nil
   end
 
   it "#arg(type : T.class, index : Int) forall T" do
