@@ -24,7 +24,7 @@ m = OSC::Message.new(
   OSC::Type::Midi.new(0_u8, 0_u8, 0_u8, 0_u8),
   OSC::Type::True,
   OSC::Type::False,
-  Nil,
+  nil,
   OSC::Type::Inf
 )
 
