@@ -2,8 +2,6 @@
 
 # osc-crystal
 
-[![Build Status](https://travis-ci.org/astellon/osc-crystal.svg?branch=master)](https://travis-ci.org/astellon/osc-crystal)
-
 Open Sound Control implementation in Crystal.
 
 This implementation is based on the [The Open Sound Control 1.0 Specification](http://opensoundcontrol.org/spec-1_0) and including some extensions (extra type-tag and dispatching).
