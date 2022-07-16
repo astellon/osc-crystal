@@ -92,6 +92,24 @@ module OSC
       end
     end
 
+    def args : Array(Type::Types)
+      (0...nargs).map do |i|
+        case ret = arg(i)
+          # These types can be returned as-is:
+          when Array(UInt8), Char, Float32, Float64, Int32, Int64, Type::Inf, Type::Midi, Type::RGBA, String, Time, Nil
+            ret
+          # These need(?) mapping from the class types.
+          when Type::False.class
+            Type::False.new
+          when Type::Inf.class
+            Type::Inf.new
+          when Type::True.class
+            Type::True.new
+        end
+      end
+
+    end
+
     def [](index : Int)
       arg(index)
     end
