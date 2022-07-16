@@ -28,7 +28,11 @@ module OSC
           else
             m = OSC::Message.new(str.bytes)
             @methods_for_message.each do |address, method|
-              if File.match?(m.address, address)
+              if    File.match?(m.address,   address)
+                # Matchs a wildcard in the message address against the server filter
+                spawn method.call(m)
+              elsif File.match?(  address, m.address)
+                # Matchs a wildcard in the server filter against the message address
                 spawn method.call(m)
               end
             end
