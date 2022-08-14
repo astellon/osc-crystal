@@ -86,7 +86,7 @@ module OSC
     def to_s
       io = IO::Memory.new
       to_s(io)
-      to.to_s
+      io.to_s
     end
 
     def to_slice
