@@ -1,5 +1,5 @@
 module OSC
-  alias BudleElement = OSC::Bundle | OSC::Message
+  alias BundleElement = OSC::Bundle | OSC::Message
 
   class Bundle
     getter data : Array(UInt8)
@@ -86,7 +86,7 @@ module OSC
     def to_s
       io = IO::Memory.new
       to_s(io)
-      to.to_s
+      io.to_s
     end
 
     def to_slice

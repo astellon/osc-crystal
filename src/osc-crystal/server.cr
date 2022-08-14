@@ -11,7 +11,7 @@ module OSC
     end
 
     def dispatch_bundle(&block : OSC::Bundle ->)
-      @methods_for_message << block
+      @methods_for_bundle << block
     end
 
     def run
